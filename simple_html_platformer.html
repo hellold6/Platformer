@@ -191,7 +191,7 @@
         const GRAVITY = 0.6;
         const JUMP_STRENGTH = -12;
         const MOVE_SPEED = 5;
-
+        
         const keys = {};
 
         window.addEventListener('keydown', (e) => {
@@ -378,6 +378,11 @@
 
             document.getElementById('toggleInvincibleBtn').addEventListener('click', () => {
                 invincible = !invincible;
+                if (invincible){
+                    player.style.background = '#0076CF';
+                } else {
+                    player.style.background = '#FF6B6B'; 
+                }
                 console.log('Invincible mode:', invincible);
             });
         };
