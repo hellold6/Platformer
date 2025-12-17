@@ -736,7 +736,7 @@
             }
 
             // Check collisions and get ground status
-            const isOnGround = checkCollisions();
+            let isOnGround = checkCollisions();
 
             // Jumping
             if ((keys['ArrowUp'] || keys['w'] || keys[' ']) && isOnGround) {
