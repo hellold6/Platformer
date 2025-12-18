@@ -35,15 +35,10 @@
             inset: 0;
             color: white;
             display: flex;
-            /*
-            Add a background image by uncommenting the lines below and providing a valid image URL
-            
-            background-image: url("ab67616d0000b27340785d18b8695438070d83b1.jpg");
+            background-image: url("background.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            */
-            background: rgba(0, 0, 0, 10);
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -191,8 +186,10 @@
         <div id="player"></div>
 
         <div id="mainMenu">
-            <h1>Simple HTML Platformer</h1>
+            <h1>FlatPorm</h1>
             <button id="startGameBtn">Start Game</button>
+            <input type="file" id="levelUpload" accept=".json">
+            <button id="customLevelBtn">Custom Levels</button>
         </div>
 
         <div id="ui">
@@ -232,6 +229,7 @@
         let isJumping = false;
         let maxLevels = 20;
         let gameStarted = false;
+        let customLevel= null;
 
         const GRAVITY = 0.6;
         const JUMP_STRENGTH = -12;
@@ -440,6 +438,34 @@
                 lives = 3;
                 uiLives.textContent = lives;
                 loadLevel(1);
+
+                /*
+                
+                !!!!!! NOTE: CUSTOM LEVEL LOADING DISABLED FOR NOW. BROKEN. GOING TO SLEEP. !!!!!!
+
+                document.getElementById('loadCustomBtn').onclick = () => {
+                const fileInput = document.getElementById('levelUpload');
+                const file = fileInput.files[0];
+                if (!file) return alert("NO FILE. CAVEMAN SAD.");
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                        try {
+                                customLevel = JSON.parse(reader.result);
+                                levels.push(customLevel);
+                                maxLevels = levels.length;
+                                loadLevel(levels.length);
+                                gameStarted = true;
+                                gameActive = true;
+                                document.getElementById('mainMenu').style.display = 'none';
+                        } catch {
+                                alert("FILE BAD. JSON ANGRY.");
+                        }
+                };
+                reader.readAsText(file);
+                };
+                */
+
             });
         };
 
