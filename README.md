@@ -1,39 +1,42 @@
 # Simple HTML Platformer (20 Levels)
 
-This is a small browser platformer built entirely in **one HTML file**.  
-Everything — the layout, styles, and game logic — is bundled together so you can open it in a browser and play immediately. No build steps, no external scripts, no dependencies.
+this is a small browser platformer built entirely in **one HTML and JS file**.  
+everything- the layout, styles, and game logic is bundled together so you can open it in a browser and play immediately. no build steps, no external scripts, no dependencies. just itself, and a browser.
 
-It uses plain HTML, CSS, and JavaScript to create a simple but surprisingly fun 20‑level platformer with enemies, spikes, gravity, and a basic lives system.
+it uses plain HTML, CSS, and JavaScript to create a simple but surprisingly fun 20‑level platformer with enemies, spikes, gravity, and a basic lives system.
 
 ---
 
-## Features
+## creature feature
 
 - 20 handcrafted levels
-- Moving enemies with patrol ranges
-- Spikes and other hazards
-- A goal orb to finish each level
-- Three‑life system with a game‑over screen
-- Smooth animation using `requestAnimationFrame`
-- Basic physics (gravity, jumping, horizontal movement)
-- Everything contained in a single `.html` file
+- moving enemies with patrol ranges
+- spikes and other hazards
+- a goal orb to finish each level
+- three‑life system with a game‑over screen
+- smooth animation using `requestAnimationFrame`
+- basic physics (gravity, jumping, horizontal movement)
+- everything contained in a tiny `.html` and `js` file
 
 ---
 
-## How to Play
+## how to play !!!
 
-- **Left:** Arrow Left or A  
-- **Right:** Arrow Right or D  
-- **Jump:** Arrow Up, W, or Space  
-- Reach the green goal orb to advance  
-- Avoid enemies and spikes  
-- You start with 3 lives  
+- **left:** <ins>arrow left</ins> or <ins>a</ins>  
+- **right:** <ins>arrow right</ins> or <ins>d</ins>  
+- **jump:** <ins>arrow up</ins>, <ins>w</ins>, or <ins>space</ins>  
+- reach the <ins>green goal orb</ins> to advance  
+- avoid enemies (yellow) and spikes (red)
+- you start with 3 lives  
 
-Just open the file in any modern browser and you're good to go.
+just open the file in any modern browser and you're FLATPORMING.
+
+## warning D:
+Make sure you have the JS and HTML in the same folder, otherwise it gets kinda clueless and loses 90% of the game
 
 ---
 
-## How It Works
+## how it works (NEEEERD SECTION) (i will not edit this so that it's in NERRRRRD launguarge)
 
 ### Physics
 
@@ -60,3 +63,11 @@ Each level is defined inside the file like this:
   goalX: number,
   goalY: number
 }
+```
+from what we remember at least..............................
+the code is constantly updating so check back every now and then!! 
+
+i, equinox, did... like. nothing. i came up with the idea lmao
+and also edited this to make it seem friengldier
+
+## thank you for visiting this page and hopefully downloading maybe please 
