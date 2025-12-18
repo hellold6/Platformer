@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Level Editor</title>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<div id="editorContainer"></div>
+
+<div id="tools">
+    <h2>Level Editor</h2>
+
+    <label>Load Level:</label>
+    <select id="levelSelect"></select>
+
+    <button data-mode="platform">Add Platform</button>
+    <button data-mode="enemy">Add Enemy</button>
+    <button data-mode="spike">Add Spike</button>
+    <button data-mode="goal">Set Goal</button>
+    <button data-mode="delete">Delete Mode</button>
+
+    <button id="exportBtn">Export JSON</button>
+
+    <textarea id="output"></textarea>
+</div>
+
+<script src="levels.js"></script>
+<script src="editor.js"></script>
+
+</body>
+</html>
