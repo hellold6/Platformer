@@ -7,7 +7,9 @@ it uses plain HTML, CSS, and JavaScript to create a simple but surprisingly fun 
 
 to do!
 
-- [ ] finish and add sprite textures
+- [x] finish and add sprite textures
+
+- [x] finish and add animations
 
 - [ ] add a theme
 

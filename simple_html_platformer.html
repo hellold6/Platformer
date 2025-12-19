@@ -455,6 +455,8 @@
             if(lives <= 0) {
                 gameActive = false;
                 showGameOver('Game Over!', 'You ran out of lives!');
+                if (lives < 0);
+                    lives = 0;
             } else {
                 loadLevel(currentLevel);
             }
@@ -489,6 +491,25 @@
                 konamiIndex = 0;
             }
         });
+
+        function updatePlayerAnimation() {
+            let movingLeft = playerVelX < 0;
+            let movingRight = playerVelX > 0;
+            let jumping = playerVelY < 0;
+            let falling = playerVelY > 0 && !checkCollisions(); // optional: only falling if not on ground
+
+            if (jumping) {
+                player.style.backgroundImage = 'url("assets/player_jump.gif")';
+            } else if (falling) {
+                player.style.backgroundImage = 'url("assets/player_jump.gif")';
+            } else if (movingLeft){
+                player.style.backgroundImage = 'url("assets/player_left.gif")';
+            } else if (movingRight){
+                player.style.backgroundImage = 'url("assets/player_right.gif")';
+            } else {
+                player.style.backgroundImage = 'url("assets/player_idle.gif")';
+            }
+        }
 
         window.onload = () => {
             document.getElementById('skipLevelBtn').addEventListener('click', () => {
@@ -596,6 +617,7 @@
         function gameLoop() {
             update();
             requestAnimationFrame(gameLoop);
+            updatePlayerAnimation();
         }
 
         // Initialize
