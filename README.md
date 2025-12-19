@@ -59,6 +59,7 @@ Make sure you have the JS and HTML in the same folder, otherwise it gets kinda c
 Use the 'Code' button dropdown to download the repo as a .zip then unzip and use the HTML from there instead of downloading everything manually. Makes everything SO MUCH EASIER
 
 SO.... USING GITHUB???? -WILLOW
+
 SHHH I ONLY JUST FIGURED IT OUT -EQUINOX
 
 ---
