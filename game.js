@@ -89,6 +89,18 @@ const gameContainer = document.getElementById('gameContainer');
                         gameContainer.appendChild(enemyEl);
                 });
 
+            /* SHELLERS
+            level.shellers?.forEach(s => {
+                const sheller = document.createElement('div');
+                sheller.className = 'sheller';
+                sheller.style.left = s.x + 'px';
+                sheller.style.top = s.y + 'px';
+                sheller.dataset.dir = s.dir || 1;
+                sheller.dataset.cooldown = 0;
+                gameContainer.appendChild(sheller);
+            }); */
+
+
             // SPIKES
             level.spikes.forEach(s => {
                 const spikeEl = document.createElement('div');
@@ -240,6 +252,59 @@ const gameContainer = document.getElementById('gameContainer');
                 showGameOver('You Won!', 'Congratulations! You completed all 20 levels!');
             }
         }
+
+        /* GET DOWN MR PRESIDENT
+        function updateShellers() {
+            document.querySelectorAll('.sheller').forEach(sheller => {
+                let cooldown = Number(sheller.dataset.cooldown);
+                cooldown--;
+
+                if (cooldown <= 0) {
+                    fireShell(sheller);
+                    cooldown = 120; // frames between shots (~2s at 60fps)
+                }
+
+                sheller.dataset.cooldown = cooldown;
+            });
+        }
+        
+        function fireShell(sheller) {
+            const shell = document.createElement('div');
+            shell.className = 'shell';
+
+            const x = parseFloat(sheller.style.left) + 18;
+            const y = parseFloat(sheller.style.top) + 18;
+
+            shell.style.left = x + 'px';
+            shell.style.top = y + 'px';
+            shell.dataset.vx = 4 * Number(sheller.dataset.dir);
+
+            gameContainer.appendChild(shell);
+        }
+        
+        function updateShells() {
+            document.querySelectorAll('.shell').forEach(shell => {
+                let x = parseFloat(shell.style.left);
+                const vx = Number(shell.dataset.vx);
+
+                x += vx;
+                shell.style.left = x + 'px';
+
+                // collision with player
+                const sw = 10, sh = 10;
+                const pw = PLAYER_HITBOX_WIDTH, ph = PLAYER_HITBOX_HEIGHT;
+
+                if (isColliding(x, parseFloat(shell.style.top), sw, sh,
+                                playerX, playerY, pw, ph)) {
+                    shell.remove();
+                    playerDeath();
+                }
+
+                // cleanup offscreen
+                if (x < -20 || x > 820) shell.remove();
+            });
+        }
+        */
         
         const devMenu = document.getElementById('devMenu');
         let invincible = false;
@@ -382,6 +447,11 @@ const gameContainer = document.getElementById('gameContainer');
                 playerVelY = JUMP_STRENGTH;
                 isOnGround = false;
             }
+
+            // GET DOWN MR PRESIDENT
+            //updateShellers();
+            //updateShells();
+
 
             updateEnemies();
             updatePlayerPosition();

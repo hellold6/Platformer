@@ -9,6 +9,9 @@ const levels = [
         ],
         enemies: [],
         spikes: [],
+        shellers: [
+            { x: 400, y: 500, dir: -1 },
+        ],
         goalX: 700,
         goalY: 350
     },
