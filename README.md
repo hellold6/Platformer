@@ -55,6 +55,8 @@ just open the file in any modern browser and you're FLATPORMING.
 
 ## warning D:
 Make sure you have the JS and HTML in the same folder, otherwise it gets kinda clueless and loses 90% of the game
+### advice
+Use the 'Code' button dropdown to download the repo as a .zip then unzip and use the HTML from there instead of downloading everything manually. Makes everything SO MUCH EASIER
 
 ---
 
@@ -90,6 +92,9 @@ from what we remember at least..............................
 the code is constantly updating so check back every now and then!! 
 
 i, equinox, did... like. nothing. i came up with the idea lmao
+i made the music and sprites which took like. max 1 hour
 and also edited this to make it seem friengldier
+willow did 90% of this!! look at her!! giver her the credit!!
+
 
 ## thank you for visiting this page and hopefully downloading maybe please 
