@@ -23,7 +23,7 @@ to do!
 
 - [ ] add a how to play on the main menu 
 
-- [ ] i know willow won't want this but i want lore 
+- [x] i know willow won't want this but i want lore 
 
 - [ ] chrome extension packaging
 
