@@ -5,6 +5,17 @@ everything- the layout, styles, and game logic is bundled together so you can op
 
 it uses plain HTML, CSS, and JavaScript to create a simple but surprisingly fun 20‑level platformer with enemies, spikes, gravity, and a basic lives system.
 
+to do!
+[ ] finish and add sprite textures
+[ ] add a theme
+[ ] implement music
+[ ] custom levels
+[ ] add the death animation + spraying particle effect upon death
+[ ] add textures to platforms, background, etc 😔
+[ ] add a how to play on the main menu 
+[ ] i know willow won't want this but i want lore 
+[ ] chrome extension packaging
+
 ---
 
 ## creature feature
