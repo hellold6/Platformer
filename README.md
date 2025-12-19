@@ -91,10 +91,10 @@ Each level is defined inside the file like this:
 from what we remember at least..............................
 the code is constantly updating so check back every now and then!! 
 
-i, equinox, did... like. nothing. i came up with the idea lmao
-i made the music and sprites which took like. max 1 hour
-and also edited this to make it seem friengldier
-willow did 90% of this!! look at her!! giver her the credit!!
+- i, equinox, did... like. nothing. i came up with the idea lmao
+- i made the music and sprites which took like. max 1 hour
+- and also edited this to make it seem friengldier
+- willow did 90% of this!! look at her!! giver her the credit!!
 
 
 ## thank you for visiting this page and hopefully downloading maybe please 
