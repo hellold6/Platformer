@@ -35,7 +35,7 @@
             inset: 0;
             color: white;
             display: flex;
-            background-image: url("background.png");
+            background-image: url("assets/background.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -175,6 +175,12 @@
             animation: fadeIn 0.5s ease-in;
         }
 
+        .upload-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -188,7 +194,11 @@
         <div id="mainMenu">
             <h1>FlatPorm</h1>
             <button id="startGameBtn">Start Game</button>
-            <input type="file" id="levelUpload" accept=".json">
+            <h1> </h1>
+            <div class="uploadWrap">
+                <input type="file" id="levelUpload" accept=".json">
+            </div>
+            <h1> </h1>
             <button id="customLevelBtn">Custom Levels</button>
         </div>
 
