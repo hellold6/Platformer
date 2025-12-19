@@ -58,6 +58,8 @@ Make sure you have the JS and HTML in the same folder, otherwise it gets kinda c
 ### advice
 Use the 'Code' button dropdown to download the repo as a .zip then unzip and use the HTML from there instead of downloading everything manually. Makes everything SO MUCH EASIER
 
+SO.... USING GITHUB???? -WILLOW
+
 ---
 
 ## how it works (NEEEERD SECTION) (i will not edit this so that it's in NERRRRRD launguarge)
@@ -95,6 +97,8 @@ the code is constantly updating so check back every now and then!!
 - i made the music and sprites which took like. max 1 hour
 - and also edited this to make it seem friengldier
 - willow did 90% of this!! look at her!! giver her the credit!!
+
+- NO I FUCKING DIDNT SOB -WILLOW
 
 
 ## thank you for visiting this page and hopefully downloading maybe please 
