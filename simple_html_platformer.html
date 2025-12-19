@@ -77,11 +77,13 @@
         #player {
             position: absolute;
             width: 30px;
-            height: 40px;
-            background: #FF6B6B;
+            height: 24px;
+            background-image: url("assets/player_idle.gif");
+            background-size: cover;
+            background-position: center;
             border-radius: 5px;
-            left: 50px;
-            top: 450px;
+            left: 30px;
+            top: 24px;
             z-index: 100;
         }
 
@@ -93,27 +95,32 @@
 
         .enemy {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            background: #FFD700;
-            border: 2px solid #FFA500;
+            width: 34px;
+            height: 30px;
+            background-image: url("assets/enemy.gif");
+            background-size: cover;
+            background-position: center;
             border-radius: 50%;
             z-index: 50;
         }
 
         .spike {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #FF0000;
-            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            width: 40px;
+            height: 37px;
+            background-image: url("assets/spikes.png");
+            background-size: cover;
+            background-position: center;
+            z-index: 60;
         }
 
         .goal {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #00FF00;
+            width: 42px;
+            height: 41px;
+            background-image: url("assets/goal.gif");
+            background-size: cover;
+            background-position: center;
             border: 2px solid #008000;
             border-radius: 50%;
             z-index: 75;
@@ -178,6 +185,7 @@
         .upload-wrap {
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
 
@@ -241,6 +249,23 @@
         let gameStarted = false;
         let customLevel= null;
 
+        // Player hitbox
+        let PLAYER_HITBOX_WIDTH = 30;
+        let PLAYER_HITBOX_HEIGHT = 24;
+
+        // Enemy default hitbox
+        let ENEMY_HITBOX_WIDTH = 34;
+        let ENEMY_HITBOX_HEIGHT = 30;
+
+        // Spike default hitbox
+        let SPIKE_HITBOX_WIDTH = 40;
+        let SPIKE_HITBOX_HEIGHT = 37;
+
+        // Goal default hitbox
+        let GOAL_HITBOX_WIDTH = 42;
+        let GOAL_HITBOX_HEIGHT = 41;
+
+
         const GRAVITY = 0.6;
         const JUMP_STRENGTH = -12;
         const MOVE_SPEED = 5;
@@ -261,56 +286,93 @@
         }
 
         function loadLevel(levelNum) {
-            currentLevel = levelNum;
-            uiLevel.textContent = currentLevel;
-            gameContainer.querySelectorAll('.platform:not(#ground)').forEach(el => el.remove());
-            gameContainer.querySelectorAll('.enemy').forEach(el => el.remove());
-            gameContainer.querySelectorAll('.spike').forEach(el => el.remove());
-            gameContainer.querySelectorAll('.goal').forEach(el => el.remove());
+                currentLevel = levelNum;
+                uiLevel.textContent = currentLevel;
 
-            const level = levels[levelNum - 1];
+                // Remove old objects
+                gameContainer.querySelectorAll('.platform:not(#ground), .enemy, .spike, .goal').forEach(el => el.remove());
 
-            level.platforms.forEach(p => {
-                const platformEl = document.createElement('div');
-                platformEl.className = 'platform';
-                platformEl.style.left = p.x + 'px';
-                platformEl.style.top = p.y + 'px';
-                platformEl.style.width = p.w + 'px';
-                platformEl.style.height = p.h + 'px';
-                gameContainer.appendChild(platformEl);
-            });
+                const level = levels[levelNum - 1];
 
-            level.enemies.forEach(e => {
-                const enemyEl = document.createElement('div');
-                enemyEl.className = 'enemy';
-                enemyEl.style.left = e.x + 'px';
-                enemyEl.style.top = e.y + 'px';
-                enemyEl.dataset.minx = e.minX;
-                enemyEl.dataset.maxx = e.maxX;
-                enemyEl.dataset.vx = 2;
-                gameContainer.appendChild(enemyEl);
-            });
+                // PLATFORMS
+                level.platforms.forEach(p => {
+                        const platformEl = document.createElement('div');
+                        platformEl.className = 'platform';
+                        platformEl.style.left = p.x + 'px';
+                        platformEl.style.top = p.y + 'px';
+                        platformEl.style.width = p.w + 'px';
+                        platformEl.style.height = p.h + 'px';
+                        platformEl.dataset.hitboxWidth = p.w;
+                        platformEl.dataset.hitboxHeight = p.h;
+                        gameContainer.appendChild(platformEl);
+                });
 
+                // ENEMIES
+                level.enemies.forEach(e => {
+                        const enemyEl = document.createElement('div');
+                        enemyEl.className = 'enemy';
+                        enemyEl.style.left = e.x + 'px';
+                        enemyEl.style.top = e.y + 'px';
+                        enemyEl.dataset.minx = e.minX;
+                        enemyEl.dataset.maxx = e.maxX;
+                        enemyEl.dataset.vx = 2;
+                        enemyEl.dataset.hitboxWidth = e.hitboxW || ENEMY_HITBOX_WIDTH;
+                        enemyEl.dataset.hitboxHeight = e.hitboxH || ENEMY_HITBOX_HEIGHT;
+                        gameContainer.appendChild(enemyEl);
+                });
+
+            // SPIKES
             level.spikes.forEach(s => {
                 const spikeEl = document.createElement('div');
                 spikeEl.className = 'spike';
                 spikeEl.style.left = s.x + 'px';
-                spikeEl.style.top = s.y + 'px';
+
+                // find the platform below this spike
+                let platformBelow = null;
+                document.querySelectorAll('.platform').forEach(plat => {
+                    const px = parseFloat(plat.style.left);
+                    const pwPlat = parseFloat(plat.dataset.hitboxWidth);
+                    const py = parseFloat(plat.style.top);
+                    if (s.x + SPIKE_HITBOX_WIDTH > px && s.x < px + pwPlat) {
+                        if (!platformBelow || py < platformBelow.y) {
+                            platformBelow = { y: py };
+                        }
+                    }
+                });
+
+                if (platformBelow) {
+                    // anchor spike on top of platform
+                    spikeEl.style.top = (platformBelow.y - SPIKE_HITBOX_HEIGHT) + 'px';
+                } else {
+                    // fallback if no platform found
+                    spikeEl.style.top = s.y + 'px';
+                }
+
+                spikeEl.dataset.hitboxWidth = s.hitboxW || SPIKE_HITBOX_WIDTH;
+                spikeEl.dataset.hitboxHeight = s.hitboxH || SPIKE_HITBOX_HEIGHT;
                 gameContainer.appendChild(spikeEl);
             });
 
-            const goalEl = document.createElement('div');
-            goalEl.className = 'goal';
-            goalEl.style.left = level.goalX + 'px';
-            goalEl.style.top = level.goalY + 'px';
-            gameContainer.appendChild(goalEl);
 
-            playerX = 50;
-            playerY = 450;
-            playerVelY = 0;
-            playerVelX = 0;
-            updatePlayerPosition();
+                // GOAL
+                const goalEl = document.createElement('div');
+                goalEl.className = 'goal';
+                goalEl.style.left = level.goalX + 'px';
+                goalEl.style.top = level.goalY + 'px';
+                goalEl.dataset.hitboxWidth = level.goalW || GOAL_HITBOX_WIDTH;
+                goalEl.dataset.hitboxHeight = level.goalH || GOAL_HITBOX_HEIGHT;
+                gameContainer.appendChild(goalEl);
+
+                // Reset player
+                playerX = 50;
+                playerY = 450;
+                playerVelY = 0;
+                playerVelX = 0;
+                player.dataset.hitboxWidth = PLAYER_HITBOX_WIDTH;
+                player.dataset.hitboxHeight = PLAYER_HITBOX_HEIGHT;
+                updatePlayerPosition();
         }
+
 
         function updatePlayerPosition() {
             player.style.left = playerX + 'px';
@@ -332,49 +394,58 @@
             });
         }
 
-        function checkCollisions() {
-            const level = levels[currentLevel - 1];
-            let isOnGround = false;
+                function checkCollisions() {
+                let isOnGround = false;
 
-            // Platform collisions
-            level.platforms.forEach(p => {
-                if (isColliding(playerX, playerY, 30, 40, p.x, p.y, p.w, p.h)) {
-                    if (playerVelY > 0 && playerY + 40 - playerVelY <= p.y + 5) {
-                        playerY = p.y - 40;
-                        playerVelY = 0;
-                        isOnGround = true;
-                    }
-                }
-            });
+                const pw = parseFloat(player.dataset.hitboxWidth);
+                const ph = parseFloat(player.dataset.hitboxHeight);
 
-            // Enemy collisions
-            level.enemies.forEach(e => {
-                const enemies = document.querySelectorAll('.enemy');
-                enemies.forEach(enemyEl => {
-                    const ex = parseFloat(enemyEl.style.left);
-                    const ey = parseFloat(enemyEl.style.top);
-                    if (isColliding(playerX, playerY, 30, 40, ex, ey, 25, 25)) {
-                        playerDeath();
-                    }
+                // PLATFORM collisions
+                document.querySelectorAll('.platform').forEach(platformEl => {
+                        const px = parseFloat(platformEl.style.left);
+                        const py = parseFloat(platformEl.style.top);
+                        const pwPlat = parseFloat(platformEl.dataset.hitboxWidth);
+                        const phPlat = parseFloat(platformEl.dataset.hitboxHeight);
+
+                        if (isColliding(playerX, playerY, pw, ph, px, py, pwPlat, phPlat)) {
+                                if (playerVelY > 0 && playerY + ph - playerVelY <= py + 5) {
+                                        playerY = py - ph;
+                                        playerVelY = 0;
+                                        isOnGround = true;
+                                }
+                        }
                 });
-            });
 
-            // Spike collisions
-            level.spikes.forEach(s => {
-                if (isColliding(playerX, playerY, 30, 40, s.x, s.y, 20, 20)) {
-                    playerDeath();
-                }
-            });
+                // ENEMY collisions
+                document.querySelectorAll('.enemy').forEach(enemyEl => {
+                        const ex = parseFloat(enemyEl.style.left);
+                        const ey = parseFloat(enemyEl.style.top);
+                        const ew = parseFloat(enemyEl.dataset.hitboxWidth);
+                        const eh = parseFloat(enemyEl.dataset.hitboxHeight);
 
-            // Goal collision
-            const goal = document.querySelector('.goal');
-            const gx = parseFloat(goal.style.left);
-            const gy = parseFloat(goal.style.top);
-            if (isColliding(playerX, playerY, 30, 40, gx, gy, 30, 30)) {
-                levelComplete();
-            }
+                        if (isColliding(playerX, playerY, pw, ph, ex, ey, ew, eh)) playerDeath();
+                });
 
-            return isOnGround;
+                // SPIKE collisions
+                document.querySelectorAll('.spike').forEach(spikeEl => {
+                        const sx = parseFloat(spikeEl.style.left);
+                        const sy = parseFloat(spikeEl.style.top);
+                        const sw = parseFloat(spikeEl.dataset.hitboxWidth);
+                        const sh = parseFloat(spikeEl.dataset.hitboxHeight);
+
+                        if (isColliding(playerX, playerY, pw, ph, sx, sy, sw, sh)) playerDeath();
+                });
+
+                // GOAL collision
+                const goal = document.querySelector('.goal');
+                const gx = parseFloat(goal.style.left);
+                const gy = parseFloat(goal.style.top);
+                const gw = parseFloat(goal.dataset.hitboxWidth);
+                const gh = parseFloat(goal.dataset.hitboxHeight);
+
+                if (isColliding(playerX, playerY, pw, ph, gx, gy, gw, gh)) levelComplete();
+
+                return isOnGround;
         }
 
         function playerDeath() {
