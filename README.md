@@ -1,4 +1,4 @@
-# Simple HTML Platformer (20 Levels)
+# FLATPORMINGM GRAHHHHH (20 Levels)
 
 this is a small browser platformer built entirely in **one HTML and JS file**.  
 everything- the layout, styles, and game logic is bundled together so you can open it in a browser and play immediately. no build steps, no external scripts, no dependencies. just itself, and a browser.
@@ -25,7 +25,7 @@ to do!
 
 - [x] i know willow won't want this but i want lore 
 
-- [ ] chrome extension packaging
+- [x] chrome extension packaging
 
 ---
 
