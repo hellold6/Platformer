@@ -27,6 +27,8 @@ to do!
 
 - [x] chrome extension packaging
 
+- [ ] mobile
+
 ---
 
 ## creature feature
